@@ -4,100 +4,48 @@ public class ShopApp {
 
     public static void main(String[] args) {
 
-        double tax = 0.2;
-        double total = 0;
-        int measurement = 3;
-        
         System.out.println("\nWelcome to Duke Choice Shop!\n");
 
+        // ======= Customer Set =======
 
-
-        // ======= Costumer Set =======
-
-        Customer c1 = new Customer();
-        c1.name = "Pinky";
-        c1.size = "S";
-        //System.out.println("Customer is " + c1.name + ".");
-
-
+        Customer c1 = new Customer("Pinky", 3);
+        System.out.println("Customer is " + c1.getName() + ".\n");
 
         // ======= Clothing Set =======
 
-        Clothing item1 = new Clothing();
-        item1.description = "Blue Jacket";
-        item1.price = 20.9;
+        System.out.println("Minimum price is $" + Clothing.MIN_PRICE + "\n");
 
-        Clothing item2 = new Clothing();
-        item2.description = "Orange T-Shirt";
-        item2.price = 10.5;
-        item2.size = "S";
+        Clothing item1 = new Clothing("Blue Jacket", 20.9, 3);
+        Clothing item2 = new Clothing("Orange T-Shirt", 10.5, 3);
+        Clothing item3 = new Clothing("Green Scarf", 5d, 3);
+        Clothing item4 = new Clothing("Blue T-Shirt", 10.5, 3);
 
-        Clothing item3 = new Clothing();
-        item3.description = "Green Scarf";
-        item3.price = 5;
-        item3.size = "S";
+        // ======= Cart =======
 
-        Clothing item4 = new Clothing();
-        item4.description = "Blue T-Shirt";
-        item4.price = 10.5;
-        item4.size = "S";
+        Clothing[] items = { item1, item2, item3, item4 };
 
+        c1.addItems(items);
 
-        Clothing[] items = {item1, item2, item3, item4};
+        for (Clothing item : c1.getItems()) {
+            System.out.println(item.getDescription() + ", " + item.getSize() + ", " + "$" + item.getPrice());
+        }
 
+        System.out.println("\nTotal to pay = $" + c1.getTotalClothingCost() + "\n");
+
+        // ======= TRY/CATCH =======
+
+        int average = 0;
+        int count = 0;
         for (Clothing item : items) {
-            System.out.println(item.description + ", " + item.size + ", " + "$" + item.price);
+            if (item.getSize().equals("L")) count++;
         }
-        System.out.println("");
-
-
-
-        // ======= Process =======
-
-        /*
-        total = (item2.price*2) + item1.price;
-        total = total + (total*tax);
-        //System.out.println("Total to pay =  $" + total);
-        */
-
-        for (Clothing item : items) {
-            if (item.size.equals(c1.size)) {
-                total = total + item.price;
-                System.out.println(item.description + ", " + item.size + ", " + "$" + item.price); 
-            }
-            if (total > 15) break; 
+        try {
+            average = ((int) c1.getTotalClothingCost()) / count;
+        } catch (ArithmeticException e) {
+            System.err.println("Can't divide by 0!");
+            average = (int) c1.getTotalClothingCost();
         }
-        System.out.println("");
-
-
-
-        // ======= Apply tax =======
-
-        total = total + (total*tax);
-        System.out.println("Total to pay =  $" + total);
-
-
-
-
-        switch (measurement) {
-            case 1, 2, 3:
-                c1.size = "S";
-                break;
-
-            case 4, 5, 6:
-                c1.size = "M";
-                break;
-
-            case 7, 8, 9:
-                c1.size = "L";
-                break;
-
-            default:
-                c1.size = "X";
-                break;
-        }
-
-
+        System.out.println("\nAverage price = $" + average + "\n");
 
     }
 
