@@ -1,5 +1,7 @@
 package scr.duke.choice;
 
+import java.util.Arrays;
+
 public class ShopApp {
 
     public static void main(String[] args) {
@@ -27,7 +29,16 @@ public class ShopApp {
         c1.addItems(items);
 
         for (Clothing item : c1.getItems()) {
-            System.out.println(item.getDescription() + ", " + item.getSize() + ", " + "$" + item.getPrice());
+            System.out.println(item);
+        }
+
+        // ======= Sort Items =======
+
+        System.out.println("");
+        Arrays.sort(c1.getItems());
+
+        for (Clothing item : c1.getItems()) {
+            System.out.println(item);
         }
 
         System.out.println("\nTotal to pay = $" + c1.getTotalClothingCost() + "\n");
@@ -37,13 +48,14 @@ public class ShopApp {
         int average = 0;
         int count = 0;
         for (Clothing item : items) {
-            if (item.getSize().equals("L")) count++;
+            if (item.getSize().equals("L"))
+                count++;
         }
         try {
             average = ((int) c1.getTotalClothingCost()) / count;
         } catch (ArithmeticException e) {
             System.err.println("Can't divide by 0!");
-            average = (int) c1.getTotalClothingCost();
+            average = (int) c1.getTotalClothingCost() / c1.getItems().length;
         }
         System.out.println("\nAverage price = $" + average + "\n");
 

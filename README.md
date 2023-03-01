@@ -4,15 +4,16 @@ Learn Java programming basics such as variables, classes, objects, loops, arrays
 
 This learning path provides an introduction to Java for:
 
-Developers  
-Designers, Administrators, and Architects  
-Support and QA Engineers  
+- Developers  
+- Designers, Administrators, and Architects  
+- Support and QA Engineers  
+
 This learning path covers:
 
-An Overview of Java  
-Text and Numbers in Java  
-Arrays, Conditions, and Loops  
-Classes and Objects  
-Exception Handling  
-Inheritance and Interfaces  
-Java on OCI  
+- An Overview of Java  
+- Text and Numbers in Java  
+- Arrays, Conditions, and Loops  
+- Classes and Objects  
+- Exception Handling  
+- Inheritance and Interfaces  
+- Java on OCI  
