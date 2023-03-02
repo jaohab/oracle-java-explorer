@@ -7,11 +7,23 @@ import java.util.Scanner;
 
 public class department implements Serializable {
 
+    private String departName;
     private employee[] employees = new employee[10];
 
     // ========= ADD EMPLOYEES =========
 
-    public void addEmployee() {
+    public void addEmployee(employee emp) {
+        ArrayList<employee> temp = new ArrayList<employee>();
+        temp.add(emp);
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i] == null) {
+                employees[i] = temp.get(0);
+                break;
+            }
+        }
+    }
+
+    public void addEmployeePack() {
         ArrayList<employee> temp = new ArrayList<employee>();
         Scanner scan = new Scanner(System.in);
         for (int i = 0; i < employees.length; i++) {
@@ -31,18 +43,19 @@ public class department implements Serializable {
         }
     }
 
-    // method to return number of employees
+    // ========= TOTAL OF EMPLOYEES =========
 
     public Integer departmentEmployees() {
         return employees.length;
     }
 
-    // method to return employee based on thir id number
+    // ========= EMPLOYEE BY ID =========
 
     public void employeeID(int i) {
         for (employee employee : employees) {
-            if (employee.getId() == i) 
-            System.out.println(employee);
+            if (employee.getId() == i)
+                System.out.println(employee);
+                break;
         }
     }
 
@@ -51,7 +64,7 @@ public class department implements Serializable {
     public double departmentSalary() {
         double salary = 0.0;
         for (employee employee : employees) {
-            salary = salary + employee.getSalary();
+            salary += employee.getSalary();
         }
         return salary;
     }
@@ -59,18 +72,30 @@ public class department implements Serializable {
     // ========= AVERAGE SALARY OF EMPLOYEES FROM THIS DEPARTMENT =========
 
     public double averageSalary() {
-        double salary = 0.0;
-        for (employee employee : employees) {
-            salary = salary + employee.getSalary();
-        }
-        return (salary / employees.length);
+        return (departmentSalary() / employees.length);
+    }
+
+    // ========= DEPARTMENT NAME =========
+
+    public String getDepartName() {
+        return departName;
+    }
+
+    public void setDepartName(String departName) {
+        this.departName = departName;
+    }
+
+    // ========= CONSTRUCTOR =========
+
+    public department(String departName) {
+        this.departName = departName;
     }
 
     // ========= TOSTRING =========
 
     @Override
     public String toString() {
-        return "DEPARTMENT ENPLOYEES " + Arrays.toString(employees);
+        return "DEPARTMENT " + departName + " ENPLOYEES " + Arrays.toString(employees);
     }
 
 }
