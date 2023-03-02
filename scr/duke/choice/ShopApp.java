@@ -1,6 +1,11 @@
 package scr.duke.choice;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Arrays;
+import io.helidon.webserver.Routing;
+import io.helidon.webserver.ServerConfiguration;
+import io.helidon.webserver.WebServer;
 
 public class ShopApp {
 
@@ -43,21 +48,35 @@ public class ShopApp {
 
         System.out.println("\nTotal to pay = $" + c1.getTotalClothingCost() + "\n");
 
+        // ======= Web Service =======
+
+        try {
+            ItemList list = new ItemList(items);
+            Routing routing = Routing.builder().get("/items", list).build();
+            ServerConfiguration config = ServerConfiguration.builder().bindAddress(InetAddress.getLocalHost()).port(8888).build();
+            WebServer ws = WebServer.create(config, routing);
+            ws.start();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
         // ======= TRY/CATCH =======
 
-        int average = 0;
-        int count = 0;
-        for (Clothing item : items) {
-            if (item.getSize().equals("L"))
-                count++;
-        }
-        try {
-            average = ((int) c1.getTotalClothingCost()) / count;
-        } catch (ArithmeticException e) {
-            System.err.println("Can't divide by 0!");
-            average = (int) c1.getTotalClothingCost() / c1.getItems().length;
-        }
-        System.out.println("\nAverage price = $" + average + "\n");
+        /*
+         * int average = 0;
+         * int count = 0;
+         * for (Clothing item : items) {
+         * if (item.getSize().equals("L"))
+         * count++;
+         * }
+         * try {
+         * average = ((int) c1.getTotalClothingCost()) / count;
+         * } catch (ArithmeticException e) {
+         * System.err.println("Can't divide by 0!");
+         * average = (int) c1.getTotalClothingCost() / c1.getItems().length;
+         * }
+         * System.out.println("\nAverage price = $" + average + "\n");
+         */
 
     }
 
